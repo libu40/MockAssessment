@@ -1,10 +1,17 @@
 version: "3.8"
 
 services:
-  web:
-    build: .
+
+  database:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=assessment
+      - MYSQL_ROOT_PASSWORD=password
     ports:
-      - 8080:8080
+      - '3306:3306'
 
   sonarqube:
     image: sonarqube:lts
@@ -67,8 +74,16 @@ services:
       - GF_LOG_FILTERS=alerting.notifier.slack:debug alertmanager:debug ngalert:debug
     networks:
       - monitoring
+
 networks:
-    monitoring:
-      driver: bridge
+  monitoring:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
+
+
+
 
 

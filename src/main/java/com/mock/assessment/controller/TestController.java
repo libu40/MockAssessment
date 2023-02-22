@@ -1,4 +1,4 @@
-package com.mock.assessment.resource;
+package com.mock.assessment.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "test controller")
 @RequestMapping("/test")
 @RestController
-public class TestResource {
+public class TestController {
 
-    private static final Logger LOGGER = LogManager.getLogger(TestResource.class);
+    private static final Logger LOGGER = LogManager.getLogger(TestController.class);
     @ApiOperation(value = "Test service", response = String.class, tags = "test")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK"),
