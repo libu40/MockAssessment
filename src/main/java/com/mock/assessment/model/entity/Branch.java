@@ -17,6 +17,14 @@ public class Branch implements Serializable {
     @Column(name = "name")
     private String name;
 
+    public List<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
+    }
+
     @OneToMany(mappedBy = "branch")
     private List<Employee> employee;
 
