@@ -27,7 +27,7 @@ public class BranchDAOImpl implements BranchDAO {
      */
     @Override
     public void createBranch(Branch branch) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.openSession();
         Employee employee = new Employee();
         employee.setName("Libu Mathew");
         List<Employee> employees = new ArrayList<>();

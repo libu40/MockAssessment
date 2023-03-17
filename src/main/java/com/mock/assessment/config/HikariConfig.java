@@ -18,7 +18,7 @@ import javax.persistence.EntityManagerFactory;
  * Class is used to hold  hibernate configuration
  */
 @Configuration
-@EnableTransactionManagement
+    @EnableTransactionManagement
 public class HikariConfig {
 
     @Bean(name = "entityManager")
