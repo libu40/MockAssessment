@@ -7,14 +7,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.net.URI;
+import java.util.List;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Api(value = "Branch controller")
@@ -40,7 +38,7 @@ public class BranchController {
         @ApiResponse(code = 204, message = "No Content!")
       })
   @PostMapping()
-  public Response createBranch(@RequestBody BranchDto branchDto) {
+  public ResponseEntity<String> createBranch(@RequestBody BranchDto branchDto) {
     LOGGER.info("create branch with name: {}", branchDto.getName());
     branchService.createBranch(branchDto);
     URI uri =
@@ -48,6 +46,19 @@ public class BranchController {
             .path("/branches")
             .buildAndExpand("/branches")
             .toUri();
-    return Response.status(Response.Status.CREATED).entity(uri).build();
+    return ResponseEntity.created(uri).build();
+  }
+
+  @ApiOperation(value = "get branches", response = BranchDto.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 500, message = "Internal Server Error!")
+      })
+  @GetMapping()
+  public ResponseEntity<List<BranchDto>> getAllBranches() {
+    LOGGER.info("Fetching all the branches");
+    List<BranchDto> branches = branchService.getBranches();
+    return ResponseEntity.ok().body(branches);
   }
 }

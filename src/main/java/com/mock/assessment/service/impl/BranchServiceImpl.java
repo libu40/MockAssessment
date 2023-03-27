@@ -5,6 +5,8 @@ import com.mock.assessment.mapper.BranchMapper;
 import com.mock.assessment.model.dto.BranchDto;
 import com.mock.assessment.model.entity.Branch;
 import com.mock.assessment.service.BranchService;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -35,5 +37,17 @@ public class BranchServiceImpl implements BranchService {
     LOGGER.info("save employee branch with name: {}", branch.getName());
     Branch employeeBranch = branchMapper.mapToBranchEntity(branch);
     branchDAO.createBranch(employeeBranch);
+  }
+
+  /** Fetch branches
+   * @return branches
+   */
+  @Override
+  public List<BranchDto> getBranches() {
+    List<Branch> branches = branchDAO.fetchAllBranches();
+    List<BranchDto> consolidatedBranches =
+        branches.stream().map(branchMapper::mapToBranchDTO).collect(Collectors.toList());
+    LOGGER.info("the number of branches  fetched are of size:{} ", consolidatedBranches.size());
+    return consolidatedBranches;
   }
 }

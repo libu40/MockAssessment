@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -52,10 +53,10 @@ public class EmployeeController {
         @ApiResponse(code = 404, message = "Not Found!")
       })
   @GetMapping("/employees")
-  public Response getAllEmployees() {
+  public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
     LOGGER.info("Fetching all the employees");
     List<EmployeeDto> employees = employeeService.getAllEmployees();
-    return Response.status(Response.Status.OK).entity(employees).build();
+    return ResponseEntity.ok().body(employees);
   }
 
   @ApiOperation(value = "create employee")
@@ -66,7 +67,7 @@ public class EmployeeController {
         @ApiResponse(code = 204, message = "No Content!")
       })
   @PostMapping()
-  public Response createEmployee(@RequestBody EmployeeDto employee) {
+  public ResponseEntity<String> createEmployee(@RequestBody EmployeeDto employee) {
     LOGGER.info("create employee with name: {}", employee.getName());
     employeeService.saveEmployee(employee);
     URI uri =
@@ -74,6 +75,6 @@ public class EmployeeController {
             .path("/{label}")
             .buildAndExpand("/employees")
             .toUri();
-    return Response.status(Response.Status.CREATED).entity(uri).build();
+    return ResponseEntity.created(uri).build();
   }
 }

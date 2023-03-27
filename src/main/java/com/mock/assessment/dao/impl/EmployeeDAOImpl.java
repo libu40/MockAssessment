@@ -32,7 +32,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> fetchAllEmployees() {
 
+        
+
         LOGGER.info("total number of employees fetched are the count:");
+
         return null;
     }
 }
