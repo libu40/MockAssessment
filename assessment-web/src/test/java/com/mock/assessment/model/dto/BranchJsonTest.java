@@ -1,8 +1,5 @@
 package com.mock.assessment.model.dto;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,29 +8,38 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
 
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @JsonTest
 public class BranchJsonTest {
 
-  @Autowired private JacksonTester<BranchDto> jackson;
+    @Autowired
+    private JacksonTester<BranchDto> jackson;
 
-  private JsonContent<BranchDto> asJson;
-
-  @Nested
-  class Serialization {
+    private JsonContent<BranchDto> asJson;
 
     @Nested
-    class HappyPath {
-      @BeforeEach
-      void setup() throws IOException {
-        BranchDto dto = new BranchDto(1, "j.w.t.1");
+    class Serialization {
 
-        asJson = jackson.write(dto);
-      }
+        @Nested
+        class PositiveScenarios {
+            @BeforeEach
+            void setup() throws IOException {
+                BranchDto dto = new BranchDto(1, "CSE");
+                asJson = jackson.write(dto);
+            }
 
-      @Test
-      void accessTokenIsMapped() {
-        assertThat(asJson).extractingJsonPathStringValue("name").isEqualTo("j.w.t.2");
-      }
+            @Test
+            void checkBranchNameIsCSE() {
+                assertThat(asJson).extractingJsonPathStringValue("name").isEqualTo("CSE");
+            }
+
+            @Test
+            void checkBranchNameIsNotEmpty() {
+                assertThat(asJson).extractingJsonPathStringValue("name").isNotBlank();
+            }
+        }
     }
-  }
 }
