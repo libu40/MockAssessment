@@ -1,4 +1,4 @@
-package com.mock.assessment.model.dto;
+package com.mock.assessment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;

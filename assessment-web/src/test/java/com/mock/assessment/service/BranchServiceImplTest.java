@@ -5,7 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.mock.assessment.dao.BranchDAO;
 import com.mock.assessment.mapper.BranchMapper;
-import com.mock.assessment.model.dto.BranchDto;
+import com.mock.assessment.dto.BranchDto;
 import com.mock.assessment.model.entity.Branch;
 import com.mock.assessment.service.impl.BranchServiceImpl;
 import java.util.ArrayList;

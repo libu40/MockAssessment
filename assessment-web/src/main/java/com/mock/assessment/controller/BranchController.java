@@ -1,6 +1,6 @@
 package com.mock.assessment.controller;
 
-import com.mock.assessment.model.dto.BranchDto;
+import com.mock.assessment.dto.BranchDto;
 import com.mock.assessment.service.BranchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

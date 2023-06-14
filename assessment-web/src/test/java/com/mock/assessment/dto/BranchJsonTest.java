@@ -1,4 +1,4 @@
-package com.mock.assessment.model.dto;
+package com.mock.assessment.dto;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,12 +13,12 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JsonTest
-public class EmployeeJsonTest {
+public class BranchJsonTest {
 
     @Autowired
-    private JacksonTester<EmployeeDto> jackson;
+    private JacksonTester<BranchDto> jackson;
 
-    private JsonContent<EmployeeDto> asJson;
+    private JsonContent<BranchDto> asJson;
 
     @Nested
     class Serialization {
@@ -27,17 +27,17 @@ public class EmployeeJsonTest {
         class PositiveScenarios {
             @BeforeEach
             void setup() throws IOException {
-                EmployeeDto dto = new EmployeeDto(1, "Libu");
+                BranchDto dto = new BranchDto(1, "CSE");
                 asJson = jackson.write(dto);
             }
 
             @Test
-            void checkEmployeeName() {
-                assertThat(asJson).extractingJsonPathStringValue("name").isEqualTo("Libu");
+            void checkBranchNameIsCSE() {
+                assertThat(asJson).extractingJsonPathStringValue("name").isEqualTo("CSE");
             }
 
             @Test
-            void checkEmployeeNameIsNotEmpty() {
+            void checkBranchNameIsNotEmpty() {
                 assertThat(asJson).extractingJsonPathStringValue("name").isNotBlank();
             }
         }

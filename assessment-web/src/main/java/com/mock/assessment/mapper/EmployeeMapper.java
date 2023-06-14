@@ -1,6 +1,6 @@
 package com.mock.assessment.mapper;
 
-import com.mock.assessment.model.dto.EmployeeDto;
+import com.mock.assessment.dto.EmployeeDto;
 import com.mock.assessment.model.entity.Employee;
 import org.mapstruct.Mapper;
 

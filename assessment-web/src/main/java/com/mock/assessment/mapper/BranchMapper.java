@@ -1,6 +1,6 @@
 package com.mock.assessment.mapper;
 
-import com.mock.assessment.model.dto.BranchDto;
+import com.mock.assessment.dto.BranchDto;
 import com.mock.assessment.model.entity.Branch;
 import org.mapstruct.Mapper;
 

@@ -1,11 +1,13 @@
 package com.mock.assessment.service.impl;
 
 import com.mock.assessment.dao.EmployeeDAO;
+import com.mock.assessment.dto.EmployeeDto;
 import com.mock.assessment.mapper.EmployeeMapper;
-import com.mock.assessment.model.dto.EmployeeDto;
 import com.mock.assessment.model.entity.Employee;
 import com.mock.assessment.service.EmployeeService;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,11 +35,14 @@ public class EmployeeServiceImpl implements EmployeeService {
    */
   @Override
   public List<EmployeeDto> getAllEmployees() {
-    List<Employee> employees = employeeDAO.fetchAllEmployees();
-    List<EmployeeDto> consolidatedEmployees =
-        employees.stream().map(employeeMapper::mapToEmployeeDTO).collect(Collectors.toList());
-    LOGGER.info("the number of employees fetched are of size:{} ", consolidatedEmployees.size());
-    return consolidatedEmployees;
+    Optional<List<Employee>> employees = employeeDAO.fetchAllEmployees();
+    if (employees.isPresent()) {
+      LOGGER.info("the number of employees fetched are of size:{} ", employees.get().size());
+      return employees.get().stream()
+          .map(employeeMapper::mapToEmployeeDTO)
+          .collect(Collectors.toList());
+    }
+    return new ArrayList<>();
   }
 
   /**

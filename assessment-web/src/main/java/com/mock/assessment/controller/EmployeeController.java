@@ -1,6 +1,6 @@
 package com.mock.assessment.controller;
 
-import com.mock.assessment.model.dto.EmployeeDto;
+import com.mock.assessment.dto.EmployeeDto;
 import com.mock.assessment.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Api(value = "Employee controller")
-@RequestMapping(
-    value = "/employees",
-    consumes = MediaType.APPLICATION_JSON,
-    produces = MediaType.APPLICATION_JSON)
+@RequestMapping("/employees")
 @RestController
 public class EmployeeController {
   private static final Logger LOGGER = LogManager.getLogger(EmployeeController.class.getName());
@@ -43,7 +40,7 @@ public class EmployeeController {
         @ApiResponse(code = 500, message = "Internal Server Error!"),
         @ApiResponse(code = 404, message = "Not Found!")
       })
-  @GetMapping("/employees/{id}")
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
   public Response getEmployeeById(@PathVariable int id) {
     LOGGER.info("fetch employee with id: {}", id);
     EmployeeDto employeeDto = employeeService.getEmployeeById(id);
@@ -57,7 +54,7 @@ public class EmployeeController {
         @ApiResponse(code = 500, message = "Internal Server Error!"),
         @ApiResponse(code = 404, message = "Not Found!")
       })
-  @GetMapping("/employees")
+  @GetMapping(produces = MediaType.APPLICATION_JSON)
   public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
     LOGGER.info("Fetching all the employees");
     List<EmployeeDto> employees = employeeService.getAllEmployees();
@@ -71,7 +68,7 @@ public class EmployeeController {
         @ApiResponse(code = 500, message = "Internal Server Error!"),
         @ApiResponse(code = 204, message = "No Content!")
       })
-  @PostMapping()
+  @PostMapping(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
   public ResponseEntity<String> createEmployee(@RequestBody EmployeeDto employee) {
     LOGGER.info("create employee with name: {}", employee.getName());
     employeeService.saveEmployee(employee);

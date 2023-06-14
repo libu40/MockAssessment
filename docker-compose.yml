@@ -16,7 +16,7 @@ services:
   sonarqube:
     image: sonarqube:lts
     ports:
-      - 9000:9000
+      - 9001:9001
     environment:
       - SONAR_FORCEAUTHENTICATION=false
 
