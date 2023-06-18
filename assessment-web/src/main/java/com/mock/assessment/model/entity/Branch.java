@@ -15,11 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "branch")
 @EntityListeners(AuditingEntityListener.class)
 public class Branch implements Serializable {
@@ -83,5 +85,12 @@ public class Branch implements Serializable {
 
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public Branch(String name, Date createdAt, Date updatedAt, Set<Employee> employee) {
+    this.name = name;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.employee = employee;
   }
 }

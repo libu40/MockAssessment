@@ -25,20 +25,21 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/employees")
 @RestController
 public class EmployeeController {
+
   private static final Logger LOGGER = LogManager.getLogger(EmployeeController.class.getName());
 
   private final EmployeeService employeeService;
 
-  EmployeeController(EmployeeService employeeService) {
-    this.employeeService = employeeService;
+  EmployeeController(EmployeeService empService) {
+    this.employeeService = empService;
   }
 
   @ApiOperation(value = "get employee by id", response = EmployeeDto.class)
   @ApiResponses(
       value = {
-        @ApiResponse(code = 200, message = "Success|OK"),
-        @ApiResponse(code = 500, message = "Internal Server Error!"),
-        @ApiResponse(code = 404, message = "Not Found!")
+          @ApiResponse(code = 200, message = "Success|OK"),
+          @ApiResponse(code = 500, message = "Internal Server Error!"),
+          @ApiResponse(code = 404, message = "Not Found!")
       })
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON)
   public Response getEmployeeById(@PathVariable int id) {
@@ -50,9 +51,9 @@ public class EmployeeController {
   @ApiOperation(value = "get employees", response = EmployeeDto.class)
   @ApiResponses(
       value = {
-        @ApiResponse(code = 200, message = "Success|OK"),
-        @ApiResponse(code = 500, message = "Internal Server Error!"),
-        @ApiResponse(code = 404, message = "Not Found!")
+          @ApiResponse(code = 200, message = "Success|OK"),
+          @ApiResponse(code = 500, message = "Internal Server Error!"),
+          @ApiResponse(code = 404, message = "Not Found!")
       })
   @GetMapping(produces = MediaType.APPLICATION_JSON)
   public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
@@ -64,9 +65,9 @@ public class EmployeeController {
   @ApiOperation(value = "create employee")
   @ApiResponses(
       value = {
-        @ApiResponse(code = 201, message = "Created"),
-        @ApiResponse(code = 500, message = "Internal Server Error!"),
-        @ApiResponse(code = 204, message = "No Content!")
+          @ApiResponse(code = 201, message = "Created"),
+          @ApiResponse(code = 500, message = "Internal Server Error!"),
+          @ApiResponse(code = 204, message = "No Content!")
       })
   @PostMapping(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
   public ResponseEntity<String> createEmployee(@RequestBody EmployeeDto employee) {

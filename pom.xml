@@ -11,6 +11,7 @@
     <relativePath/>
   </parent>
 
+
   <groupId>com.mock.assessment</groupId>
   <artifactId>mockassessment</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -25,41 +26,32 @@
 
   <profiles>
     <profile>
-      <id>docker</id>
+      <id>build</id>
       <build>
         <plugins>
           <plugin>
             <groupId>com.dkanejs.maven.plugins</groupId>
             <artifactId>docker-compose-maven-plugin</artifactId>
             <version>2.4.0</version>
-            <executions>
-              <execution>
-                <id>up</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>up</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>down</id>
-                <phase>post-integration-test</phase>
-                <goals>
-                  <goal>down</goal>
-                </goals>
-              </execution>
-            </executions>
             <configuration>
-              <composeFiles>
-                <composeFile>docker-compose.yml</composeFile>
-              </composeFiles>
-              <detachedMode>true</detachedMode>
-              <removeVolumes>true</removeVolumes>
-              <removeOrphans>true</removeOrphans>
-              <removeImages>true</removeImages>
-              <removeImagesType>local</removeImagesType>
-              <build>true</build>
-              <detail>true</detail>
-              <verbose>false</verbose>
+              <composeFile>docker-compose.yml</composeFile>
+              <detachedMode>false</detachedMode>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>exec</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.dkanejs.maven.plugins</groupId>
+            <artifactId>docker-compose-maven-plugin</artifactId>
+            <version>2.4.0</version>
+            <configuration>
+              <composeFile>assessment-web/docker-compose.yml</composeFile>
+              <detachedMode>false</detachedMode>
               <projectName>mock-assessment</projectName>
             </configuration>
           </plugin>
@@ -82,5 +74,4 @@
       </properties>
     </profile>
   </profiles>
-
 </project>
